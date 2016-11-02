@@ -89,7 +89,7 @@ function createSimulation(width: number, height: number, fps: number) {
 	const timeout = setInterval(step, 1000 / fps);
 	let iteration = 0;
 	resize();
-	step();
+	draw();
 
 	return { resize, stop };
 
@@ -139,8 +139,7 @@ function createSimulation(width: number, height: number, fps: number) {
 			// board[i * 4 + Channel.Alpha] = 1;
 		// }
 
-		context!.clearRect(0, 0, width, height);
-		context!.putImageData(new ImageData(board, width, height), 0, 0);
+		draw();
 
 		/* setTimeout(() => {
 			for (let i = 0; i < payoff.length; i++) {
@@ -149,6 +148,10 @@ function createSimulation(width: number, height: number, fps: number) {
 			}
 			context!.putImageData(image3, 0, 0);
 		}, 1000 / 2); */
+	}
+	function draw() {
+		context!.clearRect(0, 0, width, height);
+		context!.putImageData(new ImageData(board, width, height), 0, 0);
 	}
 	function stop() {
 		clearTimeout(timeout);

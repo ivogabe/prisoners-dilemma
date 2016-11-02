@@ -78,7 +78,7 @@ function createSimulation(width, height, fps) {
     var timeout = setInterval(step, 1000 / fps);
     var iteration = 0;
     resize();
-    step();
+    draw();
     return { resize: resize, stop: stop };
     function resize() {
         var clientWidth = content.clientWidth, clientHeight = content.clientHeight;
@@ -116,8 +116,7 @@ function createSimulation(width, height, fps) {
         // board[i * 4 + Channel.Green] = payoff[i] / 10;
         // board[i * 4 + Channel.Alpha] = 1;
         // }
-        context.clearRect(0, 0, width, height);
-        context.putImageData(new ImageData(board, width, height), 0, 0);
+        draw();
         var _a;
         /* setTimeout(() => {
             for (let i = 0; i < payoff.length; i++) {
@@ -126,6 +125,10 @@ function createSimulation(width, height, fps) {
             }
             context!.putImageData(image3, 0, 0);
         }, 1000 / 2); */
+    }
+    function draw() {
+        context.clearRect(0, 0, width, height);
+        context.putImageData(new ImageData(board, width, height), 0, 0);
     }
     function stop() {
         clearTimeout(timeout);

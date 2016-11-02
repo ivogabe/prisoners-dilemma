@@ -1,0 +1,33 @@
+<!DOCTYPE HTML>
+
+<html>
+	<head>
+		<title>Prisoners' Dilemma</title>
+		<link href="style.css" rel="stylesheet" />
+	</head>
+	<body style="background-color: #fff;">
+		<div id="root">
+			<div id="content">
+				<canvas id="canvas"></canvas>
+			</div>
+			<div id="form">
+				<h1>Prisoners' Dilemma</h1>
+				<label for="input-width">Width</label><br />
+				<input id="input-width" type="number" min="1" value="41" /><br />
+
+				<label for="input-height">Height</label><br />
+				<input id="input-height" type="number" min="1" value="41" /><br />
+
+				<label for="input-fps">FPS</label><br />
+				<input id="input-fps" type="number" min="1" value="10" /><br />
+				<br />
+				<a href="javascript: run();">Run</a>
+				<br />
+				<a href="javascript: fullscreen();" id="fullscreen">Toggle fullscreen</a>
+				<br /><br /><br /><br />
+				<div id="counter"></div>
+			</div>
+		</div>
+		<script src="dist/index.js"></script>
+	</body>
+</html>

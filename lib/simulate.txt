@@ -1,0 +1,45 @@
+
+export function createSimulation(canvas: HTMLCanvasElement, width: number, height: number) {
+	const textureWidth = Math.max(toPowerOfTwo(width), toPowerOfTwo(height));
+
+	const centerX = (width / 2) | 0;
+	const centerY = (height / 2) | 0;
+
+	const gl = canvas.getContext("webgl") || canvas.getContext("experimental-webgl");
+	
+	if (gl === undefined) return undefined;
+
+	gl.clearColor(0, 0, 0, 1);
+
+	const initialState = new Uint8ClampedArray(width * textureWidth * 4);
+
+	for (let i = 0; i < textureWidth; i++) {
+		for (let j = 0; j < textureWidth; j++) {
+			const index = (i * textureWidth + j) * 4;
+			if (i === centerX && j === centerY) {
+				initialState.set(index + 1, 255);
+			} else if (i > 0 && i <= width && j > 0 && j <= height) {
+				initialState.set(index + 2, 255);
+			}
+		}
+	}
+
+	const image = new ImageData(initialState, textureWidth, textureWidth);
+
+	const stateTexture = gl.createTexture();
+	gl.bindTexture(gl.TEXTURE_2D, stateTexture);
+	gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, image);
+	gl.bindTexture(gl.TEXTURE_2D, null);
+
+	function resize() {
+		// gl.viewport(0, 0, canvas.width, canvas.height);
+	}
+}
+function toPowerOfTwo(x: number) {
+	for (let i = 31; i >= 1; i--) {
+		if (x & (1 << i)) {
+			return 1 << i + 1;
+		}
+	}
+	return 1;
+}

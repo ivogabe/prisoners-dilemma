@@ -2,16 +2,6 @@ var content = document.getElementById("content");
 var canvas = document.getElementById("canvas");
 var counter = document.getElementById("counter");
 var payoffs = [100, 0, 185, 0]; // scaled [1, 0, 1.85, 0];
-// 33 * 5
-/*
-   
-  x
- Xx
-xxx
-
-X: 3 * 1.85 + 5 * 0 < 7
-Linksboven: 7 * 1 + 0 = 7
-*/
 var simulation = undefined;
 function run() {
     try {
@@ -98,10 +88,7 @@ function createSimulation(width, height, fps) {
                 var playsD = isD(x, y);
                 payoff[y * width + x] = getPayoff(playsD, playsD);
             }
-        } /*
-        for (let i = 0; i < payoff.length; i++) {
-            payoff[i] = 0;
-        }*/
+        }
         forEachNeighbour(play);
         _a = [board, oldBoard], oldBoard = _a[0], board = _a[1];
         // Copy board
@@ -112,19 +99,8 @@ function createSimulation(width, height, fps) {
             }
         }
         forEachNeighbour(compare);
-        // for (let i = 0; i < payoff.length; i++) {
-        // board[i * 4 + Channel.Green] = payoff[i] / 10;
-        // board[i * 4 + Channel.Alpha] = 1;
-        // }
         draw();
         var _a;
-        /* setTimeout(() => {
-            for (let i = 0; i < payoff.length; i++) {
-                array3[i * 4 + Channel.Green] = payoff[i];
-                array3[i * 4 + Channel.Alpha] = 1;
-            }
-            context!.putImageData(image3, 0, 0);
-        }, 1000 / 2); */
     }
     function draw() {
         context.clearRect(0, 0, width, height);

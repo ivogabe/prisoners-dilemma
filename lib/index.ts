@@ -10,16 +10,6 @@ const enum Channel {
 }
 
 const payoffs = [100, 0, 185, 0]; // scaled [1, 0, 1.85, 0];
-// 33 * 5
-/*
-   
-  x
- Xx
-xxx
-
-X: 3 * 1.85 + 5 * 0 < 7
-Linksboven: 7 * 1 + 0 = 7
-*/
 
 let simulation: {stop: () => void, resize: () => void} | undefined = undefined;
 
@@ -115,10 +105,7 @@ function createSimulation(width: number, height: number, fps: number) {
 				const playsD = isD(x, y);
 				payoff[y * width + x] = getPayoff(playsD, playsD);
 			}
-		}/*
-		for (let i = 0; i < payoff.length; i++) {
-			payoff[i] = 0;
-		}*/
+		}
 
 		forEachNeighbour(play);
 
@@ -134,20 +121,7 @@ function createSimulation(width: number, height: number, fps: number) {
 
 		forEachNeighbour(compare);
 
-		// for (let i = 0; i < payoff.length; i++) {
-			// board[i * 4 + Channel.Green] = payoff[i] / 10;
-			// board[i * 4 + Channel.Alpha] = 1;
-		// }
-
 		draw();
-
-		/* setTimeout(() => {
-			for (let i = 0; i < payoff.length; i++) {
-				array3[i * 4 + Channel.Green] = payoff[i];
-				array3[i * 4 + Channel.Alpha] = 1;
-			}
-			context!.putImageData(image3, 0, 0);
-		}, 1000 / 2); */
 	}
 	function draw() {
 		context!.clearRect(0, 0, width, height);
